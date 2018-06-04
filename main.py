@@ -27,7 +27,7 @@ def main():
         # ignore the bots own comments
         if comment.author == 'InclusiveMemer': continue
         # ignore comments from other bots, replying to all bot messages would be annoying
-        if 'bot' in comment.author.lower(): continue
+        if 'bot' in str(comment.author).lower(): continue
 
         comment_text = comment.body.lower()
         if 'men' in comment_text:
