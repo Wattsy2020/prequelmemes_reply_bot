@@ -1,5 +1,6 @@
 import praw
 import time
+import re
 
 
 def login():
@@ -12,6 +13,8 @@ def login():
     return reddit
 
 def convert_word(word):
+    word = re.sub('[^a-z]+', '', word)  # get plain text
+    
     # find the location of men in the word
     for i in range(len(word)):
         if word[i:i+3] == "men": break
