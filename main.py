@@ -25,11 +25,15 @@ def convert_word(word):
           end+" and the "+start+"children"+end+" too!")
 
 
-def is_response_to_bot(comment):
-    if comment.is_root:  # the bot will not make any top level comments
-        return False
+def is_same_joke(text):
+    return 'not just the' in text and 'but the' in text and 'and the' in text and 'too' in text
 
-    if comment.author == 'InclusiveMemer':
+
+def joke_already_made(comment):
+    if comment.is_root: 
+        return is_same_joke(comment.body)
+
+    if is_same_joke(comment.body):
         return True
 
     return is_response_to_bot(comment.parent())
@@ -41,7 +45,7 @@ def main():
         if 'bot' in str(comment.author).lower(): continue
 
         comment_text = comment.body.lower()
-        if 'men' in comment_text and not is_response_to_bot(comment):
+        if 'men' in comment_text and not joke_already_made(comment):
             words = comment_text.replace('\n', ' ').split(' ')
 
             for word in words:
@@ -50,9 +54,6 @@ def main():
                     if len(word) > 20 or word == 'comment': continue
                     
                     reply_phrase = convert_word(word)
-
-                    # if someone already made the same joke don't repeat it
-                    if reply_phrase in comment_text: break
                     
                     # handle any api exceptions e.g. comment was deleted, connection timeout
                     try:
