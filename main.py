@@ -26,6 +26,7 @@ def convert_word(word):
 
 
 def is_same_joke(text):
+    text = text.lower()
     return 'not just the' in text and 'but the' in text and 'and the' in text and 'too' in text
 
 
@@ -36,7 +37,7 @@ def joke_already_made(comment):
     if is_same_joke(comment.body):
         return True
 
-    return is_response_to_bot(comment.parent())
+    return joke_already_made(comment.parent())
 
 
 def main():
