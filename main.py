@@ -37,8 +37,6 @@ def is_response_to_bot(comment):
 
 def main():
     for comment in subreddit.stream.comments():
-        # ignore the bots own comments
-        if comment.author == 'InclusiveMemer': continue
         # ignore comments from other bots, replying to all bot messages would be annoying
         if 'bot' in str(comment.author).lower(): continue
 
