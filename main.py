@@ -42,7 +42,7 @@ def main():
 
         comment_text = comment.body.lower()
         if 'men' in comment_text and not is_response_to_bot(comment):
-            words = comment_text.split(' ')
+            words = comment_text.replace('\n', ' ').split(' ')
 
             for word in words:
                 if 'men' in word:
